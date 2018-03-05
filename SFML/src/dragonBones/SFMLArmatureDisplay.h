@@ -47,6 +47,8 @@ public:
 	void setPosition(const sf::Vector2f& pos) { _position = pos; }
 	auto& getPosition() { return _position; }
 
+	void drawSlot(sf::RenderTarget& target, sf::RenderStates states, std::string name) const;
+	
 protected:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };

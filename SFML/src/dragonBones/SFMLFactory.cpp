@@ -23,13 +23,30 @@
 
 DRAGONBONES_NAMESPACE_BEGIN
 
-DragonBones* SFMLFactory::_dragonBonesInstance;
-SFMLFactory* SFMLFactory::_factory;
+SFMLFactory* SFMLFactory::_factory = nullptr;
+
+SFMLFactory* SFMLFactory::get()
+{
+	if (_factory == nullptr) {
+		_factory = new SFMLFactory();
+	}
+	
+	return _factory;
+}
+
+void SFMLFactory::clearInstance() {
+	if (_factory != nullptr) {
+		delete _factory;
+	}
+	
+	_factory = nullptr;
+}
 
 SFMLFactory::SFMLFactory()
 {
 	_factory = this;
-
+	_dragonBonesInstance = nullptr;
+	
 	if (_dragonBonesInstance == nullptr)
 	{
 		_soundEventDispatcher = std::make_unique<SFMLEventDispatcher>();
@@ -42,7 +59,7 @@ SFMLFactory::SFMLFactory()
 
 SFMLFactory::~SFMLFactory()
 {
-	clear();
+	//clear();
 
 	if (_dragonBonesInstance)
 	{
@@ -149,7 +166,7 @@ SFMLArmatureDisplay* SFMLFactory::buildArmatureDisplay(const std::string& armatu
 
 	if (armature != nullptr)
 	{
-		_dragonBones->getClock()->add(armature);
+		//_dragonBones->getClock()->add(armature);
 
 		return static_cast<SFMLArmatureDisplay*>(armature->getDisplay());
 	}

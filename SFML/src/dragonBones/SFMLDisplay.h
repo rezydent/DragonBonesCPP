@@ -25,6 +25,12 @@ public:
 	bool							visible;
 
 	sf::Vector2f					position;
+	
+	struct DisplayOutput {
+		sf::Sprite *sprite;
+		SFMLMesh *mesh;
+		sf::Transform transform;
+	};
 
 private:
 	Matrix							matrix;
@@ -56,6 +62,17 @@ public:
 
 		if (meshDisplay)
 			meshDisplay->setColor(color);
+	}
+	
+	DisplayOutput getDisplayData()
+	{
+		DisplayOutput output;
+		output.sprite = spriteDisplay.get();
+		output.mesh = meshDisplay.get();
+		output.transform = sf::Transform(matrix.a * textureScale, matrix.c * textureScale, offset.x + position.x,
+			matrix.b * textureScale, matrix.d * textureScale, offset.y + position.y,
+			0.f, 0.f, 1.f);
+		return output;
 	}
 
 protected:

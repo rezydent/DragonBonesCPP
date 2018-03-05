@@ -38,6 +38,7 @@ public:
 		/*for (auto& callback : _listeners[type])
 		{
 		}*/
+		// TODO No Removal
 	}
 
 	virtual void dispatchDBEvent(const std::string& type, EventObject * value) override

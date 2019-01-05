@@ -1,6 +1,8 @@
 #include "Animation.h"
 #include "../model/AnimationConfig.h"
 #include "../model/AnimationData.h"
+#include "../model/ArmatureData.h"
+#include "../model/DragonBonesData.h"
 #include "../armature/Armature.h"
 #include "../armature/Bone.h"
 #include "../armature/Slot.h"
@@ -222,11 +224,12 @@ AnimationState* Animation::playConfig(AnimationConfig* animationConfig)
     const auto& animationName = animationConfig->animation;
     if (_animations.find(animationName) == _animations.end())
     {
+		DragonBonesData *p = this->_armature->getArmatureData()->parent;
         DRAGONBONES_ASSERT(
             false,
-            "Non-existent animation.\n" +
-            " DragonBones name: " + this->_armature->getArmatureData().parent->name +
-            " Armature name: " + this->_armature->name +
+            std::string() + "Non-existent animation.\n" +
+            " DragonBones name: " + p->name +
+            " Armature name: " + this->_armature->getName() +
             " Animation name: " + animationName
         );
 

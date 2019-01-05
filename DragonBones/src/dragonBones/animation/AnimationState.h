@@ -250,19 +250,22 @@ public:
     ActionTimelineState* _actionTimeline;
 
 private:
-    unsigned _timelineDirty;
     float _fadeTime;
     float _time;
     std::vector<std::string> _boneMask;
-    std::vector<BoneTimelineState*> _boneTimelines;
+    
     std::vector<SlotTimelineState*> _slotTimelines;
     std::vector<ConstraintTimelineState*> _constraintTimelines;
-    std::vector<std::pair<TimelineState*, BaseTimelineType>> _poseTimelines;
-    std::map<std::string, BonePose*> _bonePoses;
+    
     Armature* _armature;
     ZOrderTimelineState* _zOrderTimeline;
 
 public:
+	unsigned _timelineDirty;
+	std::vector<BoneTimelineState*> _boneTimelines;
+	std::vector<std::pair<TimelineState*, BaseTimelineType>> _poseTimelines;
+	std::map<std::string, BonePose*> _bonePoses;
+
     AnimationState() :
         _actionTimeline(nullptr),
         _zOrderTimeline(nullptr)
@@ -346,6 +349,7 @@ public:
      * @language zh_CN
      */
     bool containsBoneMask(const std::string& name) const;
+	bool actuallyContainsBoneMask(const std::string& name) const;
     /**
      * - Add a specific bone mask.
      * @param name - The bone name.

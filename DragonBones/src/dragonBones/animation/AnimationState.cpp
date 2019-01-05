@@ -746,6 +746,11 @@ bool AnimationState::containsBoneMask(const std::string& name) const
     return _boneMask.empty() || std::find(_boneMask.cbegin(), _boneMask.cend(), name) != _boneMask.cend();
 }
 
+bool AnimationState::actuallyContainsBoneMask(const std::string& name) const
+{
+	return std::find(_boneMask.cbegin(), _boneMask.cend(), name) != _boneMask.cend();
+}
+
 void AnimationState::addBoneMask(const std::string& name, bool recursive)
 {
     const auto currentBone = _armature->getBone(name);

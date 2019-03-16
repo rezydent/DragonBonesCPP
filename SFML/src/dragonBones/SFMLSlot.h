@@ -1,21 +1,17 @@
-/*
-*********************************************************************
-* File          : SFMLSlot.h
-* Project		: DragonBonesSFML
-* Developers    : Piotr Krupa (piotrkrupa06@gmail.com)
-* License   	: MIT License
-*********************************************************************
-*/
+/** @file SFMLSlot.h
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 
 #pragma once
 
 #include <memory>
 
-#include <dragonBones\DragonBonesHeaders.h>
-
-#include "SFMLDisplay.h"
+#include <dragonBones/DragonBonesHeaders.h>
 
 DRAGONBONES_NAMESPACE_BEGIN
+
+class SFMLNode;
 
 class SFMLSlot : public Slot
 {
@@ -23,7 +19,7 @@ class SFMLSlot : public Slot
 
 private:
 	float _textureScale;
-	std::unique_ptr<SFMLDisplay> _renderDisplay;
+	SFMLNode* _renderDisplay = nullptr;
 
 public:
 	virtual void _updateVisible() override;
@@ -31,8 +27,8 @@ public:
 	virtual void _updateColor() override;
 
 protected:
-    virtual void _initDisplay(void* value, bool isRetain) override;
-    virtual void _disposeDisplay(void* value, bool isRelease) override;
+	virtual void _initDisplay(void* value, bool isRetain) override;
+	virtual void _disposeDisplay(void* value, bool isRelease) override;
 	virtual void _onUpdateDisplay() override;
 	virtual void _addDisplay() override;
 	virtual void _replaceDisplay(void* value, bool isArmatureDisplay) override;

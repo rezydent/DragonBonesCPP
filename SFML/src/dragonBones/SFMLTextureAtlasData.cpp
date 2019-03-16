@@ -1,18 +1,13 @@
-/*
-*********************************************************************
-* File          : SFMLTextureAtlasData.cpp
-* Project		: DragonBonesSFML
-* Developers    : Piotr Krupa (piotrkrupa06@gmail.com)
-* License   	: MIT License
-*********************************************************************
-*/
-
+/** @file SFMLTextureAtlasData.cpp
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 #include "SFMLTextureAtlasData.h"
 
 #include <memory>
 
-#include <SFML\Graphics\Rect.hpp>
-#include <SFML\System\Vector2.hpp>
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/Vector2.hpp>
 
 #include "SFMLTextureData.h"
 
@@ -45,26 +40,15 @@ void SFMLTextureAtlasData::setRenderTexture(sf::Texture* value)
 
 			if (textureData->texture == nullptr)
 			{
-				sf::IntRect rect(
-					textureData->region.x, textureData->region.y,
-					textureData->rotated ? textureData->region.height : textureData->region.width,
-					textureData->rotated ? textureData->region.width : textureData->region.height
-				);
+				dragonBones::Rectangle region;
+				region.x = textureData->region.x;
+				region.y = textureData->region.y;
+				region.width = textureData->rotated ? textureData->region.height : textureData->region.width;
+				region.height = textureData->rotated ? textureData->region.width : textureData->region.height;
 
 				textureData->texture = _renderTexture;
-				textureData->textureRect = std::move(rect);
+				textureData->region = std::move(region);
 			}
-		}
-	}
-	else
-	{
-		for (const auto& pair : textures)
-		{
-			const auto textureData = static_cast<SFMLTextureData*>(pair.second);
-
-			// textureData->Sprite.reset();
-
-			// nothing to release
 		}
 	}
 }

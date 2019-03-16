@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2012-2017 DragonBones team and other contributors
+ * Copyright (c) 2012-2018 DragonBones team and other contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -37,7 +37,6 @@ class CCArmatureDisplay : public cocos2d::Node, public virtual IArmatureProxy
 public:
     /**
      * @internal
-     * @private
      */
     static CCArmatureDisplay* create();
 public:
@@ -112,10 +111,13 @@ public:
     {
         return _armature->getAnimation();
     }
+    /**
+    * @inheritDoc
+    */
+    virtual cocos2d::Rect getBoundingBox() const override;
 };
 /**
  * @internal
- * @private
  */
 class DBCCSprite : public cocos2d::Sprite
 {

@@ -1,16 +1,12 @@
-/*
-*********************************************************************
-* File          : SFMLTextureAtlasData.h
-* Project		: DragonBonesSFML
-* Developers    : Piotr Krupa (piotrkrupa06@gmail.com)
-* License   	: MIT License
-*********************************************************************
-*/
+/** @file SFMLTextureAtlasData.h
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 
 #pragma once
 
-#include <dragonBones\DragonBonesHeaders.h>
-#include <SFML\Graphics\Texture.hpp>
+#include <dragonBones/DragonBonesHeaders.h>
+#include <SFML/Graphics/Texture.hpp>
 
 DRAGONBONES_NAMESPACE_BEGIN
 

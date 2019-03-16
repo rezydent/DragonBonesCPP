@@ -1,19 +1,15 @@
-/*
-*********************************************************************
-* File          : SFMLTextureData.h
-* Project		: DragonBonesSFML
-* Developers    : Piotr Krupa (piotrkrupa06@gmail.com)
-* License   	: MIT License
-*********************************************************************
-*/
+/** @file SFMLTextureData.h
+ ** @author Piotr Krupa (piotrkrupa06@gmail.com)
+ ** @license MIT License
+ **/
 
 #pragma once
 
 #include <memory>
 
-#include <dragonBones\DragonBonesHeaders.h>
+#include <dragonBones/DragonBonesHeaders.h>
 
-#include <SFML\Graphics\Sprite.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 DRAGONBONES_NAMESPACE_BEGIN
 
@@ -23,9 +19,6 @@ class SFMLTextureData : public TextureData
 
 public:
 	sf::Texture*			texture;
-	sf::IntRect				textureRect;
-
-	std::string				path;
 
 public:
 	SFMLTextureData()
@@ -51,11 +44,10 @@ public:
 
 		region.x = 0.f;
 		region.y = 0.f;
-		region.width = size.x;
-		region.height = size.y;
+		region.width = static_cast<float>(size.x);
+		region.height = static_cast<float>(size.y);
 
 		texture = value;
-		textureRect = { 0, 0, static_cast<int>(size.x), static_cast<int>(size.y) };
 	}
 };
 

@@ -1,4 +1,5 @@
 #include "CCArmatureDisplay.h"
+#include "CCSlot.h"
 
 DRAGONBONES_NAMESPACE_BEGIN
 
@@ -78,6 +79,45 @@ void CCArmatureDisplay::removeDBEventListener(const std::string& type, const std
     _dispatcher->removeCustomEventListeners(type);
 }
 
+cocos2d::Rect CCArmatureDisplay::getBoundingBox() const
+{
+    auto isFirst = true;
+    float minX = 0.0f;
+    float minY = 0.0f;
+    float maxX = 0.0f;
+    float maxY = 0.0f;
+
+    for (const auto slot : _armature->getSlots())
+    {
+        if (!slot->getVisible() || !slot->getDisplay())
+        { 
+            continue;
+        }
+        
+        const auto display = static_cast<CCSlot*>(slot)->getCCDisplay();
+        const auto bounds = display->getBoundingBox();
+        if (isFirst)
+        {
+            isFirst = false;
+            minX = bounds.getMinX();
+            minY = bounds.getMinY();
+            maxX = bounds.getMaxX();
+            maxY = bounds.getMaxY();
+        }
+        else
+        {
+            minX = std::min(minX, bounds.getMinX());
+            minY = std::min(minY, bounds.getMinY());
+            maxX = std::max(maxX, bounds.getMaxX());
+            maxY = std::max(maxY, bounds.getMaxY());
+        }
+    }
+
+    cocos2d::Rect rect(minX, minY, maxX - minX, maxY - minY);
+
+    return cocos2d::RectApplyTransform(rect, getNodeToParentTransform());
+}
+
 DBCCSprite* DBCCSprite::create()
 {
     DBCCSprite* sprite = new (std::nothrow) DBCCSprite();
@@ -110,7 +150,7 @@ bool DBCCSprite::_checkVisibility(const cocos2d::Mat4& transform, const cocos2d:
     float hSizeX = size.width / 2;
     float hSizeY = size.height / 2;
 
-    cocos2d::Vec3 v3p(hSizeX + rect.origin.x, hSizeY + rect.origin.y, 0);
+    cocos2d::Vec3 v3p(hSizeX, hSizeY, 0);
 
     transform.transformPoint(&v3p);
     cocos2d::Vec2 v2p = cocos2d::Camera::getVisitingCamera()->projectGL(v3p);

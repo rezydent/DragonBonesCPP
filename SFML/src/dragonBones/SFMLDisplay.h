@@ -32,8 +32,9 @@ public:
 	sf::PrimitiveType				primitiveType = sf::PrimitiveType::TriangleStrip;
 	
 	struct DisplayOutput {
-		sf::Sprite *sprite;
-		SFMLMesh *mesh;
+		const sf::Texture* texture;
+		std::vector<sf::Vertex>* vertices;
+		sf::PrimitiveType primitiveType;
 		sf::Transform transform;
 	};
 
@@ -83,11 +84,10 @@ public:
 	DisplayOutput getDisplayData()
 	{
 		DisplayOutput output;
-		output.sprite = spriteDisplay.get();
-		output.mesh = meshDisplay.get();
-		output.transform = sf::Transform(matrix.a * textureScale, matrix.c * textureScale, offset.x + position.x,
-			matrix.b * textureScale, matrix.d * textureScale, offset.y + position.y,
-			0.f, 0.f, 1.f);
+		output.texture = texture;
+		output.vertices = &verticesDisplay;
+		output.primitiveType = primitiveType;
+		output.transform = _transform;
 		return output;
 	}
 

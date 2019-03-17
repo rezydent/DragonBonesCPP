@@ -39,6 +39,7 @@ public:
 	}
 
 	virtual void setVisible(bool visible) { _visible = visible; }
+	bool getVisible() { return _visible; }
 
 	virtual void setColor(const sf::Color& color) = 0;
 

@@ -8,6 +8,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "SFMLArmatureProxy.h"
+#include "SFMLSlot.h"
 
 DRAGONBONES_NAMESPACE_BEGIN
 
@@ -69,12 +70,16 @@ void SFMLArmatureDisplay::draw(sf::RenderTarget& target, sf::RenderStates states
 
 void SFMLArmatureDisplay::drawSlot(sf::RenderTarget& target, sf::RenderStates states, std::string name) const
 {
-	auto slot = _armature->getSlot(name);
+	SFMLSlot* slot = (SFMLSlot*)getArmature()->getSlot(name);
 	if (!slot) return;
-	auto display = static_cast<SFMLDisplay*>(slot->getRawDisplay());
+	SFMLNode* display = slot->getDisplayNode();
 	if (!display) return;
-	display->position = _position;
+	//display->position = _position;
+
+	bool wasVisible = display->getVisible();
+	display->setVisible(true);
 	target.draw(*display, states);
+	display->setVisible(wasVisible);
 }
 
 DRAGONBONES_NAMESPACE_END

@@ -26,6 +26,10 @@ public:
 	virtual void _updateBlendMode() override;
 	virtual void _updateColor() override;
 
+	SFMLNode* getDisplayNode() {
+		return _renderDisplay;
+	}
+
 protected:
 	virtual void _initDisplay(void* value, bool isRetain) override;
 	virtual void _disposeDisplay(void* value, bool isRelease) override;
